@@ -33,8 +33,6 @@ exports.create = (req, res) => {
                     })
             }
         })
-
-    
 }
 
 exports.findAll = (req, res) => {
@@ -65,6 +63,21 @@ exports.findOne = (req, res) => {
                 message: 'Error retrieving a joke with the id ' + req.params.jokeId
             })
         })
+}
+
+exports.findOneRandom = (req, res) => {
+    JokeModel.countDocuments().exec((err, count) => {
+        let random = Math.floor(Math.random() * count)
+        JokeModel.findOne().skip(random).exec((err, result) => {
+            if (!result) {
+                return res.status(404).send({
+                    message: 'It was not possible to return a random joke'
+                })
+            }
+
+            return res.send(result)
+        })
+    }) 
 }
 
 exports.update = (req, res) => {

@@ -5,6 +5,8 @@ module.exports = (app) => {
 
     app.get('/jokes', jokes.findAll)
 
+    app.get('/jokes/random', jokes.findOneRandom)
+
     app.get('/jokes/:jokeId', jokes.findOne)
 
     app.put('/jokes/:jokeId', jokes.update)
