@@ -36,7 +36,7 @@ exports.create = (req, res) => {
 }
 
 exports.findAll = (req, res) => {
-    JokeModel.find()
+    JokeModel.find({ adult: req.query.adult || false })
         .then(jokes => {
             res.send(jokes)
         })
