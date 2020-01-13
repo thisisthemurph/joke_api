@@ -66,17 +66,24 @@ exports.findOne = (req, res) => {
 }
 
 exports.findOneRandom = (req, res) => {
-    JokeModel.countDocuments().exec((err, count) => {
-        let random = Math.floor(Math.random() * count)
-        JokeModel.findOne().skip(random).exec((err, result) => {
-            if (!result) {
-                return res.status(404).send({
-                    message: 'It was not possible to return a random joke'
-                })
-            }
+    const query = {
+        adult: req.query.adult || false
+    }
 
-            return res.send(result)
-        })
+    JokeModel.countDocuments(query).exec((err, count) => {
+        const random = Math.floor(Math.random() * count)
+
+        JokeModel.findOne(query)
+            .skip(random)
+            .exec((err, result) => {
+                if (!result) {
+                    return res.status(404).send({
+                        message: 'It was not possible to return a random joke'
+                    })
+                }
+
+                return res.send(result)
+            })
     }) 
 }
 
