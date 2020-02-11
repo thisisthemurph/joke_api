@@ -21,7 +21,7 @@ exports.create = (req, res) => {
                     text: req.body.text,
                     adult: req.body.adult || false
                 })
-                
+
                 joke.save()
                     .then(data => {
                         res.send(data)
@@ -84,7 +84,7 @@ exports.findOneRandom = (req, res) => {
 
                 return res.send(result)
             })
-    }) 
+    })
 }
 
 exports.update = (req, res) => {
@@ -139,7 +139,7 @@ exports.delete = (req, res) => {
             if(err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
                     message: "Joke not found with id " + req.params.jokeId
-                });                
+                });
             }
 
             return res.status(500).send({
