@@ -1,15 +1,11 @@
 module.exports = (app) => {
     const jokes = require('../controllers/joke.controller.js')
-    const authenticate = require('../../authenticate.js')
 
-    app.route('/jokes')
-        .post(authenticate, jokes.create)
+    app.route('/jokes/api')
         .get(jokes.findAll)
 
-    app.get('/jokes/random', jokes.findOneRandom)
+    app.get('/jokes/api/random', jokes.findOneRandom)
 
-    app.route('/jokes/:jokeId')
+    app.route('/jokes/api/:jokeId')
         .get(jokes.findOne)
-        .put(authenticate, jokes.update)
-        .delete(authenticate, jokes.delete)
 }
